@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    var p1move=null;
+    var p2move=null;
+    var p2roll=69;
+    var win=null;
+    var p1score=0;
+    var p2score=0;
+    var quote=0;
+    var playername=prompt("choose your name")
+    //choose your weapon
+    function play(){
+      p1move = prompt ("rock, paper, or scissors?");
+      if (p1move!=="rock"&&p1move!=="paper"&&p1move!=="scissors"&&p1move!=="gun"&&p1move!=="spoon"){
+        console.log (p1move+" isn't a valid choice!");
+        return
+      }
+      else{
+        console.log (playername+" chose "+p1move);
+        if(playername=="ben"){
+          if(p1move=="rock"){
+            p2move="scissors";
+          }
+          if(p1move=="paper"){
+            p2move="rock";
+          }
+          if(p1move=="scissors"){
+            p2move="paper";
+          }
+          if(p1move=="gun"||p1move=="spoon"){
+            roll()
+            return
+          }
+          compare();
+        }
+        else roll();
+      }
+    }
+    //computer chooses
+    function roll(){
+      p2roll = Math.random();
+      if(p2roll<=0.33){
+        p2move = "rock";
+      }
+      else if (p2roll<=0.66){
+        p2move = "paper"
+      }
+      else{
+        p2move="scissors"
+      }
+    compare();
+    }
+    //compare player 1 and player 2's choices
+    function compare(){
+      console.log ("computer chose "+p2move);
+      if (p1move==p2move){
+        if (p1score > p2score){
+          quote=2
+        }
+        if (p1score == p2score){
+          quote=5
+        }
+        if (p1score < p2score){
+          quote=8
+        }
+        console.log("it's a draw! try again?");
+        boast()
+      }
+      if (p1move=="rock"){
+        if(p2move=="scissors"){
+          win=true;
+        }
+        else win=false;
+      }
+      if(p1move=="paper"){
+        if(p2move=="rock"){
+          win=true;
+        }
+        else win=false;
+      }
+      if(p1move=="scissors"){
+        if(p2move=="paper"){
+          win=true;
+        }
+        else win=false;
+      }
+      if(p1move=="gun") win=true;
+      if(p1move=="spoon") win=false;
+      decide();
+    }
+    //decide the winner
+    function decide(){
+      if(win==true){
+        if (p1score > p2score){
+          quote=1
+        }
+        if (p1score == p2score){
+          quote=4
+        }
+        if (p1score < p2score){
+          quote=7
+        }
+        console.log("you win!");
+        p1score++;
+      }
+      else{
+        if (p1score > p2score){
+          quote=0
+        }
+        if (p1score == p2score){
+          quote=3
+        }
+        if (p1score < p2score){
+          quote=6
+        }
+        console.log("you lose!");
+        p2score++;
+      }
+      console.log("player 1: "+p1score+"   player 2: "+p2score);
+      boast()
+    }
+    function boast(){
+        //losing-win-0
+      if(quote==0){
+        console.log('"Heh heh... Don\'t underestimate my '+p2move+'!"');
+        return
+      }
+        //losing-lose-1
+      if(quote==1){
+        console.log('"G-gah! I was sure my '+p2move+' would succeed!"');
+        return
+      }
+        //losing-draw-2
+      if(quote==2){
+        console.log('"Tch..."');
+        return
+      }
+        //drawing-win-3
+      if(quote==3){
+        console.log('"Heh, now things are getting interesting!"');
+        return
+      }
+        //drawing-lose-4
+      if(quote==4){
+        console.log('"Argh, your '+p1move+' was too strong!"');
+        return
+      }
+        //drawing-draw-5
+      if(quote==5){
+        console.log('"Come on, '+playername+', take this seriously!"');
+        return
+      }
+        //winning-win-6
+      if(quote==6){
+        console.log('"Hah! Your puny '+p1move+' was no match for my '+p2move+'!"');
+        return
+      }
+        //winning-lose-7
+      if(quote==7){
+        console.log('"W-what? '+p1move+', my one weakness!"');
+        return
+      }
+        //winning-draw-8
+      if(quote==8){
+        console.log('"You got lucky this time, '+playername+'."');
+        return
+      }
+    }
+  </script>
+</head>
+<body>
+  <button type="button" onclick="play()">play the game!</button>
+  <p id="score"></p>
+</body>
+</html>
